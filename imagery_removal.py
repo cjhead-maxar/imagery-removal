@@ -41,6 +41,9 @@ def recursive_image_Search(start_path, images, suffixes=SUFFIXES):
 class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
+        self.user = getuser()
+        self.system = self.get_system()
+        self.images = []
         self.grid(sticky=NSEW)
         self.createWidgets()
 
@@ -60,30 +63,33 @@ class Application(Frame):
         style.configure('TButton',
             background='light blue')
 
-    def find_imagery(self):
-
-        user = getuser()
-        stargazer = r"C:\Users\{}\Desktop\GeoCue_Data".format(user)
+    def get_system(self):
+        stargazer = r"C:\Users\{}\Desktop\GeoCue_Data".format(self.user)
         blaze = r"D:\GeoCue_Data"
 
         if os.path.exists(stargazer):
-            return self.delete_imagery(stargazer)
+            return stargazer
 
         elif os.path.exists(blaze):
-            return self.delete_imagery(blaze)
+            return blaze
 
-    def delete_imagery(self, system):
+    def find_imagery(self):
 
-        image_list = []
-        images = recursive_image_Search(system, image_list)
-        images_text = "\n".join(images)
+        if len(self.images) > 0:
+            self.images = []
 
-        window2 = Toplevel()
-        window2.resizable(width=True, height=True)
-        window2.rowconfigure(0, weight=1)
-        window2.columnconfigure(0, weight=1)
+        recursive_image_Search(self.system, self.images)
 
-        frame1 = Frame(window2)
+        return self.imagery_window()
+
+    def imagery_window(self):
+
+        self.imagery_window = Toplevel()
+        self.imagery_window.resizable(width=True, height=True)
+        self.imagery_window.rowconfigure(0, weight=1)
+        self.imagery_window.columnconfigure(0, weight=1)
+
+        frame1 = Frame(self.imagery_window)
         frame1.grid(sticky=NSEW)
         frame1.rowconfigure(0, weight=1)
         frame1.rowconfigure(1, weight=1)
@@ -103,7 +109,7 @@ class Application(Frame):
 
         textbox1 = Text(labelframe1)
         textbox1.grid(row=0, column=0, sticky=NSEW)
-        textbox1.insert('insert', images_text)
+        textbox1.insert('insert', "\n".join(self.images))
         textbox1['bg'] = 'light blue'
         textbox1['yscrollcommand'] = scrollbar1.set
         textbox1['state'] = DISABLED
@@ -113,18 +119,18 @@ class Application(Frame):
         label1 = Label(frame1, text="Delete All Imagery?", anchor=CENTER)
         label1.grid(row=1, column=0, columnspan=2, sticky=NSEW)
 
-        button1 = Button(frame1, text="Yes", command=lambda:self.confirm_delete(window2, images))
+        button1 = Button(frame1, text="Yes", command=lambda:self.delete_imagery(self.imagery_window))
         button1.grid(row=2, column=0, sticky=NSEW)
 
-        button2 = Button(frame1, text="No", command=window2.destroy)
+        button2 = Button(frame1, text="No", command=self.imagery_window.destroy)
         button2.grid(row=2, column=1, sticky=NSEW)
 
-    def confirm_delete(self, window, images):
+    def delete_imagery(self, window):
 
         window.destroy()
 
         remove = os.remove
-        for image in images:
+        for image in self.images:
             remove(image)
 
         tkMessageBox.showinfo("Imagery Deleted", "Imagery Has Been Deleted!")
