@@ -13,6 +13,8 @@ SUFFIXES = (
     "ard_mosaic_ms_combo.aux",
     "ard_maxardem.tif",
     "ard_maxardem.aux",
+    "stack.img",
+    "stack.rrd",
     "imagery_nostat.img",
     "imagery_nostat.ige",
     "imagery.img",
@@ -20,7 +22,8 @@ SUFFIXES = (
     "dem.img",
     "vn.img",
     ".aux",
-    "imagery.ige"
+    "imagery.ige",
+    ".pyrx"
 )
 
 def recursive_image_Search(start_path, images, suffixes=SUFFIXES):
