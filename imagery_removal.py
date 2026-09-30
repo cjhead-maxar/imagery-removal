@@ -1,6 +1,7 @@
 import os
-import tkMessageBox
 from getpass import getuser
+
+import tkMessageBox
 from Tkinter import *
 from ttk import *
 
@@ -8,11 +9,37 @@ from ttk import *
 # Be as specific as possible
 SUFFIXES = (
     "ard_mosaic_ms.tif",
-    "ard_mosaic_ms.aux",
+    "ard_mosaic_ms.rrd",
+    "ard_mosaic_ms_BY.tif",
+    "ard_mosaic_ms_BY.rrd",
+    "ard_mosaic_ms_BY2.tif",
+    "ard_mosaic_ms_BY2.rrd",
+    "ard_mosaic_ms_BY2_mos.tif",
+    "ard_mosaic_ms_BY2_mos.rrd",
     "ard_mosaic_ms_combo.tif",
-    "ard_mosaic_ms_combo.aux",
+    "ard_mosaic_ms_combo.rrd",
+    "ard_mosaic_ms_combo_BY.tif",
+    "ard_mosaic_ms_combo_BY.rrd",
+    "ard_mosaic_ms_combo_BY2.tif",
+    "ard_mosaic_ms_combo_BY2.rrd",
+    "ard_mosaic_ms_combo_BY2_mos.tif",
+    "ard_mosaic_ms_combo_BY2_mos.rrd",
+    "ard_mosaic_ms_maxardem.tif",
+    "ard_mosaic_ms_maxardem.rrd",
+    "ard_mosaic_ms_maxardem_BY.tif",
+    "ard_mosaic_ms_maxardem_BY.rrd",
+    "ard_mosaic_ms_maxardem_BY2.tif",
+    "ard_mosaic_ms_maxardem_BY2.rrd",
+    "ard_mosaic_ms_maxardem_BY2_mos.tif",
+    "ard_mosaic_ms_maxardem_BY2_mos.rrd",
     "ard_maxardem.tif",
-    "ard_maxardem.aux",
+    "ard_maxardem.rrd",
+    "ard_maxardem_BY.tif",
+    "ard_maxardem_BY.rrd",
+    "ard_maxardem_BY2.tif",
+    "ard_maxardem_BY2.rrd",
+    "ard_maxardem_BY2_mos.tif",
+    "ard_maxardem_BY2_mos.rrd",
     "stack.img",
     "stack.rrd",
     "imagery_nostat.img",
